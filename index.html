@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timer</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: "Arial", sans-serif;
+        background: url("6.jpg");
+        background-attachment: fixed;
+        background-size: cover;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: url(11.jpg);
+        background-attachment: fixed;
+        background-size: cover;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .time-display {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+      .time-display div {
+        margin: 0 10px;
+        height: 100px;
+        width: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      button {
+        margin: 10px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      button.start {
+        background-color: #28a745;
+        color: white;
+      }
+      button.stop {
+        background-color: #dc3545;
+        color: white;
+      }
+      button.reset {
+        background-color: #ffc107;
+        color: white;
+      }
+      button:hover {
+        opacity: 0.9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="time-display">
+        <div class="h"></div>
+        <h1>:</h1>
+        <div class="m"></div>
+        <h1>:</h1>
+        <div class="s"></div>
+        <h1>:</h1>
+        <div class="mm"></div>
+      </div>
+      <div class="buttons">
+        <button class="start">Start</button>
+        <button class="stop">Stop</button>
+        <button class="reset">Reset</button>
+      </div>
+    </div>
+    <script>
+      let h = document.querySelector(".h");
+      let m = document.querySelector(".m");
+      let mm = document.querySelector(".mm");
+      let s = document.querySelector(".s");
+      let y = 0;
+      let i = 0;
+      let j = 0;
+      let k = 0;
+      let interval;
+
+      document.querySelector(".start").onclick = function () {
+        if (!interval) {
+          interval = setInterval(function () {
+            y++;
+            if (y == 100) {
+              i++;
+              y = 0;
+            }
+            if (i == 60) {
+              j++;
+              i = 0;
+            }
+            if (j == 60) {
+              k++;
+              j = 0;
+            }
+            if (k == 24) {
+              k = 0;
+            }
+            mm.innerHTML = y;
+            s.innerHTML = i;
+            m.innerHTML = j;
+            h.innerHTML = k;
+          }, 10);
+        }
+      };
+
+      document.querySelector(".stop").onclick = function () {
+        clearInterval(interval);
+        let im = Math.floor(Math.random() * 11);
+
+        document.querySelector(
+          ".container"
+        ).style.backgroundImage = `url('${im}.jpg')`;
+        interval = null;
+      };
+
+      document.querySelector(".reset").onclick = function () {
+        //
+        let im = Math.floor(Math.random() * 11);
+
+        document.body.style.backgroundImage = `url('${im}.jpg')`;
+        //
+        clearInterval(interval);
+        interval = null;
+        y = 0;
+        i = 0;
+        j = 0;
+        k = 0;
+        mm.innerHTML = y;
+        s.innerHTML = i;
+        m.innerHTML = j;
+        h.innerHTML = k;
+      };
+    </script>
+  </body>
+</html>
